@@ -1,0 +1,9 @@
+group_code,group_description,sample_count,percentage_of_test,mean_d1,median_d1,std_d1,iqr_d1,mean_text_confidence,mean_multimodal_confidence,multimodal_model_a_accuracy,mean_predictive_entropy
+T1_A1_V1,Group 1: Text Correct / Audio Correct / Visual Correct,540,20.69,0.135,0.1317,0.0681,0.0976,0.8681,0.8194,0.95,0.0912
+T1_A0_V0,Group 2: Text Correct / Audio Incorrect / Visual Incorrect,546,20.92,0.46,0.4514,0.1367,0.1813,0.7986,0.578,0.641,0.379
+T0_A1_V1,Group 3: Text Incorrect / Audio Correct / Visual Correct,151,5.79,0.337,0.3342,0.1158,0.1586,0.6654,0.5838,0.6225,0.3644
+T1_A1_V0,Group 4: Text Correct / Audio Correct / Visual Incorrect,309,11.84,0.3428,0.3459,0.096,0.1335,0.8549,0.6894,0.8447,0.2271
+T1_A0_V1,Group 5: Text Correct / Audio Incorrect / Visual Correct,372,14.25,0.3565,0.3562,0.1006,0.1543,0.839,0.7059,0.8656,0.2033
+T0_A1_V0,Group 6: Text Incorrect / Audio Correct / Visual Incorrect,119,4.56,0.3941,0.3853,0.1315,0.1766,0.6461,0.5325,0.4874,0.443
+T0_A0_V1,Group 7: Text Incorrect / Audio Incorrect / Visual Correct,132,5.06,0.3952,0.3728,0.135,0.182,0.6316,0.5315,0.4091,0.4526
+T0_A0_V0,Group 8: All Three Modalities Incorrect,441,16.9,0.3516,0.3479,0.1444,0.2051,0.6459,0.5092,0.1837,0.4939

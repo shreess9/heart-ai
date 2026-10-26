@@ -1,0 +1,44 @@
+# Emotion Configuration for H.E.A.R.T. AI
+# Primary benchmark: MELD (Multimodal EmotionLines Dataset) 7-class taxonomy
+
+taxonomy_name: "MELD-7"
+num_classes: 7
+
+# Canonical label order (must be strictly preserved across all modalities and fusion layers)
+labels:
+  - "anger"
+  - "disgust"
+  - "fear"
+  - "joy"
+  - "neutral"
+  - "sadness"
+  - "surprise"
+
+# Mapping from canonical label to integer index
+label_to_id:
+  anger: 0
+  disgust: 1
+  fear: 2
+  joy: 3
+  neutral: 4
+  sadness: 5
+  surprise: 6
+
+id_to_label:
+  0: "anger"
+  1: "disgust"
+  2: "fear"
+  3: "joy"
+  4: "neutral"
+  5: "sadness"
+  6: "surprise"
+
+# Valence-Arousal dimensional mapping (used for auxiliary affective interpretation)
+valence_arousal_map:
+  anger: { valence: -0.6, arousal: 0.8 }
+  disgust: { valence: -0.7, arousal: 0.4 }
+  fear: { valence: -0.7, arousal: 0.8 }
+  joy: { valence: 0.8, arousal: 0.6 }
+  neutral: { valence: 0.0, arousal: 0.0 }
+  sadness: { valence: -0.8, arousal: -0.5 }
+  surprise: { valence: 0.3, arousal: 0.8 }

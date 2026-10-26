@@ -1,0 +1,12 @@
+{
+  "B_vs_A": {
+    "diff_macro_f1": -0.013007305194805141,
+    "p_value": 0.4944,
+    "significant": 0
+  },
+  "C_vs_A": {
+    "diff_macro_f1": 0.005562319624819678,
+    "p_value": 0.7622,
+    "significant": 0
+  }
+}

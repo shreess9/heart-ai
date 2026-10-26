@@ -1,0 +1,39 @@
+# Model Configurations for H.E.A.R.T. AI
+# Modality encoders, feature extractors, and classification heads
+
+global:
+  device: "cpu" # Options: "cpu", "cuda"
+  seed: 42
+  num_classes: 7
+
+text:
+  model_type: "roberta"
+  backbone: "roberta-base"
+  feature_dim: 768
+  max_sequence_length: 128
+  pooling: "cls" # Options: "cls", "mean"
+  checkpoint_path: null
+  dropout: 0.1
+  mock_enabled: false
+
+audio:
+  model_type: "wav2vec2"
+  backbone: "facebook/wav2vec2-base-960h"
+  feature_dim: 768
+  sample_rate: 16000
+  max_audio_duration_seconds: 10.0
+  pooling: "mean"
+  checkpoint_path: null
+  dropout: 0.1
+  mock_enabled: false
+
+visual:
+  model_type: "vit"
+  backbone: "google/vit-base-patch16-224"
+  feature_dim: 768
+  image_size: 224
+  num_frames: 1 # For single keyframe or pooled video frames
+  pooling: "cls"
+  checkpoint_path: null
+  dropout: 0.1
+  mock_enabled: false

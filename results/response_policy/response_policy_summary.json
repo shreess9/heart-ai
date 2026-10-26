@@ -1,0 +1,235 @@
+{
+  "study": "H.E.A.R.T. AI Reliability-Gated Response Policy Experiment",
+  "sample_counts": {
+    "test": 2610,
+    "dev": 1109,
+    "dialogues_test": 280
+  },
+  "baseline_model_a_accuracy": 0.674712643678161,
+  "baseline_model_a_error_rate": 0.325287356321839,
+  "policy_performance_summary": [
+    {
+      "policy_name": "Policy 0: Always Adapt (Na\u00efve)",
+      "description": "Always adapt with predicted emotion",
+      "strong_adaptation_count": 2610,
+      "strong_adaptation_coverage_pct": 100.0,
+      "strong_adaptation_accuracy": 0.6747,
+      "strong_adaptation_error_rate": 0.3253,
+      "cautious_count": 0,
+      "cautious_pct": 0.0,
+      "neutral_count": 0,
+      "neutral_pct": 0.0,
+      "clarification_count": 0,
+      "clarification_pct": 0.0,
+      "error_rate_strong_action": 0.3253,
+      "error_rate_cautious_action": 1.0,
+      "error_rate_neutral_action": 1.0,
+      "error_rate_clarification_action": 1.0,
+      "tp_strong_adaptations": 1761,
+      "fp_strong_adaptations": 849,
+      "prevented_incorrect_adaptations": 0,
+      "unnecessarily_downgraded_correct": 0,
+      "net_strong_error_reduction_pct": 0.0,
+      "auroc_selective_prediction": 0.7785,
+      "auprc_selective_prediction": 0.8838
+    },
+    {
+      "policy_name": "Policy 1: Confidence-Only",
+      "description": "Calibrated confidence gating",
+      "strong_adaptation_count": 1329,
+      "strong_adaptation_coverage_pct": 50.92,
+      "strong_adaptation_accuracy": 0.8555,
+      "strong_adaptation_error_rate": 0.1445,
+      "cautious_count": 677,
+      "cautious_pct": 25.94,
+      "neutral_count": 604,
+      "neutral_pct": 23.14,
+      "clarification_count": 0,
+      "clarification_pct": 0.0,
+      "error_rate_strong_action": 0.1445,
+      "error_rate_cautious_action": 0.4225,
+      "error_rate_neutral_action": 0.6142,
+      "error_rate_clarification_action": 1.0,
+      "tp_strong_adaptations": 1137,
+      "fp_strong_adaptations": 192,
+      "prevented_incorrect_adaptations": 657,
+      "unnecessarily_downgraded_correct": 624,
+      "net_strong_error_reduction_pct": 18.08,
+      "auroc_selective_prediction": 0.7785,
+      "auprc_selective_prediction": 0.8838
+    },
+    {
+      "policy_name": "Policy 2: Confidence + D1/D3",
+      "description": "Reliability gating via JSD & categorical conflict",
+      "strong_adaptation_count": 1208,
+      "strong_adaptation_coverage_pct": 46.28,
+      "strong_adaptation_accuracy": 0.8709,
+      "strong_adaptation_error_rate": 0.1291,
+      "cautious_count": 565,
+      "cautious_pct": 21.65,
+      "neutral_count": 412,
+      "neutral_pct": 15.79,
+      "clarification_count": 425,
+      "clarification_pct": 16.28,
+      "error_rate_strong_action": 0.1291,
+      "error_rate_cautious_action": 0.4124,
+      "error_rate_neutral_action": 0.6383,
+      "error_rate_clarification_action": 0.4635,
+      "tp_strong_adaptations": 1052,
+      "fp_strong_adaptations": 156,
+      "prevented_incorrect_adaptations": 693,
+      "unnecessarily_downgraded_correct": 709,
+      "net_strong_error_reduction_pct": 19.61,
+      "auroc_selective_prediction": 0.7814,
+      "auprc_selective_prediction": 0.8826
+    },
+    {
+      "policy_name": "Policy 3: Full Reliability (+Entropy)",
+      "description": "Calibrated confidence + D1 + D3 + entropy",
+      "strong_adaptation_count": 1194,
+      "strong_adaptation_coverage_pct": 45.75,
+      "strong_adaptation_accuracy": 0.8702,
+      "strong_adaptation_error_rate": 0.1298,
+      "cautious_count": 578,
+      "cautious_pct": 22.15,
+      "neutral_count": 413,
+      "neutral_pct": 15.82,
+      "clarification_count": 425,
+      "clarification_pct": 16.28,
+      "error_rate_strong_action": 0.1298,
+      "error_rate_cautious_action": 0.4152,
+      "error_rate_neutral_action": 0.6223,
+      "error_rate_clarification_action": 0.4635,
+      "tp_strong_adaptations": 1039,
+      "fp_strong_adaptations": 155,
+      "prevented_incorrect_adaptations": 694,
+      "unnecessarily_downgraded_correct": 722,
+      "net_strong_error_reduction_pct": 19.55,
+      "auroc_selective_prediction": 0.7793,
+      "auprc_selective_prediction": 0.8825
+    }
+  ],
+  "policy_ablation_summary": [
+    {
+      "ablation_signal": "A: Confidence Only",
+      "description": "Calibrated confidence",
+      "strong_coverage_pct": 50.92,
+      "strong_accuracy": 0.8555,
+      "strong_error_rate": 0.1445,
+      "prevented_incorrect_strong": 657,
+      "unnecessarily_downgraded_correct": 624,
+      "error_reduction_vs_baseline_pct": 18.08,
+      "selective_prediction_auroc": 0.7785
+    },
+    {
+      "ablation_signal": "B: Confidence + D1",
+      "description": "Calibrated confidence + JSD",
+      "strong_coverage_pct": 51.11,
+      "strong_accuracy": 0.8583,
+      "strong_error_rate": 0.1417,
+      "prevented_incorrect_strong": 660,
+      "unnecessarily_downgraded_correct": 616,
+      "error_reduction_vs_baseline_pct": 18.36,
+      "selective_prediction_auroc": 0.7805
+    },
+    {
+      "ablation_signal": "C: Confidence + D3",
+      "description": "Calibrated confidence + Categorical Disagreement",
+      "strong_coverage_pct": 50.65,
+      "strong_accuracy": 0.8638,
+      "strong_error_rate": 0.1362,
+      "prevented_incorrect_strong": 669,
+      "unnecessarily_downgraded_correct": 619,
+      "error_reduction_vs_baseline_pct": 18.91,
+      "selective_prediction_auroc": 0.7826
+    },
+    {
+      "ablation_signal": "D: Confidence + D1 + D3",
+      "description": "Confidence + JSD + Categorical Disagreement",
+      "strong_coverage_pct": 46.28,
+      "strong_accuracy": 0.8709,
+      "strong_error_rate": 0.1291,
+      "prevented_incorrect_strong": 693,
+      "unnecessarily_downgraded_correct": 709,
+      "error_reduction_vs_baseline_pct": 19.61,
+      "selective_prediction_auroc": 0.7814
+    },
+    {
+      "ablation_signal": "E: Confidence + D1 + D3 + Entropy",
+      "description": "Complete multimodal reliability formulation",
+      "strong_coverage_pct": 45.75,
+      "strong_accuracy": 0.8702,
+      "strong_error_rate": 0.1298,
+      "prevented_incorrect_strong": 694,
+      "unnecessarily_downgraded_correct": 722,
+      "error_reduction_vs_baseline_pct": 19.55,
+      "selective_prediction_auroc": 0.7793
+    }
+  ],
+  "dev_thresholds": {
+    "p1_conf_high": 0.6659088134765625,
+    "p1_conf_low": 0.4312435984611511,
+    "d1_conflict_threshold": 0.5308482965050028,
+    "p2_weights": {
+      "const": -1.594853228598047,
+      "conf": 4.034610862065246,
+      "d1": 0.5757030238434442,
+      "d3": -0.34036143321145096
+    },
+    "p2_score_high": 0.7241187263036238,
+    "p2_score_low": 0.4916123475728034,
+    "p3_weights": {
+      "const": -0.3297666928110481,
+      "conf": 2.89045457201451,
+      "d1": 0.5985490420238085,
+      "d3": -0.33102203492151316,
+      "entropy": -0.3669477868020752
+    },
+    "p3_score_high": 0.7184419383091085,
+    "p3_score_low": 0.48834630241353477,
+    "abl_b_weights": {
+      "const": -1.6895224054201015,
+      "conf": 4.150110014934806,
+      "d1": -0.2955626353889175
+    },
+    "abl_b_score_high": 0.7208958018944336,
+    "abl_b_score_low": 0.488880701692222,
+    "abl_c_weights": {
+      "const": -1.4833577132363418,
+      "conf": 4.017156965340789,
+      "d3": -0.21831823874574802
+    },
+    "abl_c_score_high": 0.7236997800944256,
+    "abl_c_score_low": 0.4892097786291535
+  },
+  "counterfactual_analysis": {
+    "Policy 0: Always Adapt (Na\u00efve)": {
+      "tp_strong": 1761,
+      "fp_strong": 849,
+      "prevented_incorrect": 0,
+      "unnecessary_downgrade": 0,
+      "net_error_reduction_pct": 0.0
+    },
+    "Policy 1: Confidence-Only": {
+      "tp_strong": 1137,
+      "fp_strong": 192,
+      "prevented_incorrect": 657,
+      "unnecessary_downgrade": 624,
+      "net_error_reduction_pct": 18.08
+    },
+    "Policy 2: Confidence + D1/D3": {
+      "tp_strong": 1052,
+      "fp_strong": 156,
+      "prevented_incorrect": 693,
+      "unnecessary_downgrade": 709,
+      "net_error_reduction_pct": 19.61
+    },
+    "Policy 3: Full Reliability (+Entropy)": {
+      "tp_strong": 1039,
+      "fp_strong": 155,
+      "prevented_incorrect": 694,
+      "unnecessary_downgrade": 722,
+      "net_error_reduction_pct": 19.55
+    }
+  }
+}

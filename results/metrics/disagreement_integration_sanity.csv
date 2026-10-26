@@ -1,0 +1,25 @@
+experiment,variant,seed,accuracy,macro_f1,weighted_f1,raw_ece,calibrated_ece,raw_brier,calibrated_brier,high_conf_error_cal,temperature
+disagreement_integration_sanity,Model A (Baseline Concatenation),42,0.673946,0.473119,0.661596,0.230166,0.040799,0.536797,0.453644,0.09212,3.60095
+disagreement_integration_sanity,Model A (Baseline Concatenation),123,0.665134,0.478345,0.661915,0.161014,0.047648,0.49719,0.460693,0.108315,2.12461
+disagreement_integration_sanity,Model A (Baseline Concatenation),456,0.650192,0.449342,0.647849,0.275295,0.037743,0.605099,0.479236,0.112161,4.71866
+disagreement_integration_sanity,Model B-Raw (Direct Scalar Concatenation),42,0.585057,0.397213,0.585287,0.132794,0.068416,0.576536,0.55596,0.12,1.94036
+disagreement_integration_sanity,Model B-Raw (Direct Scalar Concatenation),123,0.573946,0.36651,0.571028,0.159937,0.053161,0.591951,0.555811,0.117555,2.00098
+disagreement_integration_sanity,Model B-Raw (Direct Scalar Concatenation),456,0.522989,0.363213,0.532567,0.306126,0.032678,0.74411,0.601393,0.108481,3.40457
+disagreement_integration_sanity,"Model B-Norm (Standardized D1, D2, D3)",42,0.411877,0.265708,0.428623,0.435195,0.050302,0.978958,0.715164,0.021739,7.08849
+disagreement_integration_sanity,"Model B-Norm (Standardized D1, D2, D3)",123,0.484674,0.27046,0.481074,0.252783,0.035929,0.727793,0.637332,0.055046,3.2069
+disagreement_integration_sanity,"Model B-Norm (Standardized D1, D2, D3)",456,0.458621,0.297347,0.465567,0.283726,0.058253,0.798153,0.68557,0.04898,4.13636
+disagreement_integration_sanity,Model B-Proj (Learned Disagreement Projection),42,0.493487,0.343515,0.512929,0.359481,0.020375,0.824289,0.638964,0.119904,4.22289
+disagreement_integration_sanity,Model B-Proj (Learned Disagreement Projection),123,0.562069,0.389952,0.571222,0.285572,0.046782,0.696973,0.575496,0.091837,3.67054
+disagreement_integration_sanity,Model B-Proj (Learned Disagreement Projection),456,0.555556,0.376113,0.56067,0.335289,0.02069,0.741443,0.570581,0.118519,4.37145
+disagreement_integration_sanity,Single Feature: A + D1-Norm,42,0.508812,0.32384,0.51786,0.322577,0.030402,0.777621,0.627594,0.068182,3.92768
+disagreement_integration_sanity,Single Feature: A + D1-Norm,123,0.542912,0.325532,0.542451,0.335722,0.055943,0.756074,0.603276,0.054054,5.41287
+disagreement_integration_sanity,Single Feature: A + D1-Norm,456,0.462069,0.301901,0.489809,0.374716,0.055009,0.867106,0.666397,0.088803,4.07936
+disagreement_integration_sanity,Single Feature: A + D2-Norm,42,0.522605,0.321366,0.521944,0.292138,0.032181,0.747121,0.618892,0.036364,3.55421
+disagreement_integration_sanity,Single Feature: A + D2-Norm,123,0.489272,0.310317,0.488613,0.290413,0.061878,0.77348,0.665853,0.04902,4.21705
+disagreement_integration_sanity,Single Feature: A + D2-Norm,456,0.488506,0.310265,0.488209,0.343822,0.05354,0.830952,0.66323,0.055,4.93611
+disagreement_integration_sanity,Single Feature: A + D3-Norm,42,0.533716,0.362846,0.550138,0.311307,0.045413,0.752457,0.613399,0.068768,4.38046
+disagreement_integration_sanity,Single Feature: A + D3-Norm,123,0.578927,0.330721,0.565956,0.074376,0.115082,0.565358,0.584763,0.084633,2.23435
+disagreement_integration_sanity,Single Feature: A + D3-Norm,456,0.524904,0.342591,0.528712,0.208659,0.040749,0.664829,0.597154,0.072016,2.53956
+disagreement_integration_sanity,Random-Control: A + 3 Random Features,42,0.680077,0.496945,0.669749,0.226643,0.041465,0.532703,0.448122,0.099129,3.69298
+disagreement_integration_sanity,Random-Control: A + 3 Random Features,123,0.678544,0.479692,0.669582,0.168159,0.040231,0.490348,0.449946,0.091603,2.30593
+disagreement_integration_sanity,Random-Control: A + 3 Random Features,456,0.676628,0.488644,0.672251,0.151222,0.045347,0.482158,0.449291,0.091099,2.04485

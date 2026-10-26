@@ -1,0 +1,33 @@
+modality_state,state_sample_count,baseline_model_a_accuracy,policy_name,strong_adaptation_count,strong_adaptation_coverage_pct,strong_adaptation_accuracy,strong_adaptation_error_rate,clarification_count,clarification_pct
+T1_A1_V1,494,0.9615,Policy 0: Always Adapt (Naïve),494,100.0,0.9615,0.0385,0,0.0
+T1_A1_V1,494,0.9615,Policy 1: Confidence-Only,391,79.15,0.9949,0.0051,0,0.0
+T1_A1_V1,494,0.9615,Policy 2: Confidence + D1/D3,416,84.21,0.9928,0.0072,0,0.0
+T1_A1_V1,494,0.9615,Policy 3: Full Reliability (+Entropy),415,84.01,0.9928,0.0072,0,0.0
+T1_A0_V0,574,0.6568,Policy 0: Always Adapt (Naïve),574,100.0,0.6568,0.3432,0,0.0
+T1_A0_V0,574,0.6568,Policy 1: Confidence-Only,226,39.37,0.8451,0.1549,0,0.0
+T1_A0_V0,574,0.6568,Policy 2: Confidence + D1/D3,122,21.25,0.8115,0.1885,235,40.94
+T1_A0_V0,574,0.6568,Policy 3: Full Reliability (+Entropy),121,21.08,0.8182,0.1818,235,40.94
+T0_A1_V1,148,0.7027,Policy 0: Always Adapt (Naïve),148,100.0,0.7027,0.2973,0,0.0
+T0_A1_V1,148,0.7027,Policy 1: Confidence-Only,61,41.22,0.8525,0.1475,0,0.0
+T0_A1_V1,148,0.7027,Policy 2: Confidence + D1/D3,61,41.22,0.8689,0.1311,0,0.0
+T0_A1_V1,148,0.7027,Policy 3: Full Reliability (+Entropy),60,40.54,0.85,0.15,0,0.0
+T1_A1_V0,348,0.8448,Policy 0: Always Adapt (Naïve),348,100.0,0.8448,0.1552,0,0.0
+T1_A1_V0,348,0.8448,Policy 1: Confidence-Only,222,63.79,0.9685,0.0315,0,0.0
+T1_A1_V0,348,0.8448,Policy 2: Confidence + D1/D3,224,64.37,0.9688,0.0312,0,0.0
+T1_A1_V0,348,0.8448,Policy 3: Full Reliability (+Entropy),216,62.07,0.9676,0.0324,0,0.0
+T1_A0_V1,344,0.8895,Policy 0: Always Adapt (Naïve),344,100.0,0.8895,0.1105,0,0.0
+T1_A0_V1,344,0.8895,Policy 1: Confidence-Only,239,69.48,0.9874,0.0126,0,0.0
+T1_A0_V1,344,0.8895,Policy 2: Confidence + D1/D3,244,70.93,0.9877,0.0123,0,0.0
+T1_A0_V1,344,0.8895,Policy 3: Full Reliability (+Entropy),244,70.93,0.9836,0.0164,0,0.0
+T0_A1_V0,143,0.4685,Policy 0: Always Adapt (Naïve),143,100.0,0.4685,0.5315,0,0.0
+T0_A1_V0,143,0.4685,Policy 1: Confidence-Only,36,25.17,0.4444,0.5556,0,0.0
+T0_A1_V0,143,0.4685,Policy 2: Confidence + D1/D3,21,14.69,0.3333,0.6667,57,39.86
+T0_A1_V0,143,0.4685,Policy 3: Full Reliability (+Entropy),19,13.29,0.3684,0.6316,57,39.86
+T0_A0_V1,134,0.4478,Policy 0: Always Adapt (Naïve),134,100.0,0.4478,0.5522,0,0.0
+T0_A0_V1,134,0.4478,Policy 1: Confidence-Only,36,26.87,0.6667,0.3333,0,0.0
+T0_A0_V1,134,0.4478,Policy 2: Confidence + D1/D3,19,14.18,0.6316,0.3684,54,40.3
+T0_A0_V1,134,0.4478,Policy 3: Full Reliability (+Entropy),20,14.93,0.6,0.4,54,40.3
+T0_A0_V0,425,0.1835,Policy 0: Always Adapt (Naïve),425,100.0,0.1835,0.8165,0,0.0
+T0_A0_V0,425,0.1835,Policy 1: Confidence-Only,118,27.76,0.1186,0.8814,0,0.0
+T0_A0_V0,425,0.1835,Policy 2: Confidence + D1/D3,101,23.76,0.099,0.901,79,18.59
+T0_A0_V0,425,0.1835,Policy 3: Full Reliability (+Entropy),99,23.29,0.0909,0.9091,79,18.59

@@ -1,0 +1,96 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Environment and Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+secrets.json
+
+# Model Weights and Large Artifacts
+models/weights/
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+*.ckpt
+*.h5
+hf_cache/
+
+# Datasets and Media
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/splits/*
+!data/splits/.gitkeep
+*.wav
+*.mp3
+*.mp4
+*.avi
+*.jpg
+*.jpeg
+*.png
+*.tar.gz
+*.zip
+!test_assets/*
+
+# Temp and Scratch Folders
+tmp/
+temp_media/
+
+# Logs and Experiments
+logs/
+*.log
+results/metrics/*.json
+results/figures/*.png
+results/tables/*.csv
+!results/**/.gitkeep
+
+# IDE and Editor Cache
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+.gemini/
+
+# Pytest / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+*.mov

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heart-ai"
+version = "0.1.0"
+description = "Human-centered Emotion-Aware Reliability-aware Technology for AI Companionship"
+authors = [
+    { name = "H.E.A.R.T. AI Research Team" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.2.0",
+    "torchvision>=0.17.0",
+    "torchaudio>=2.2.0",
+    "transformers>=4.48.0",
+    "scipy>=1.12.0",
+    "numpy>=1.26.0",
+    "pandas>=2.2.0",
+    "scikit-learn>=1.4.0",
+    "pydantic>=2.10.0",
+    "pyyaml>=6.0.0",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.34.0",
+    "rich>=13.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["models*", "fusion*", "reliability*", "dialogue*", "backend*", "experiments*", "caregiver*"]

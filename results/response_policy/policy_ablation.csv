@@ -1,0 +1,6 @@
+ablation_signal,description,strong_coverage_pct,strong_accuracy,strong_error_rate,prevented_incorrect_strong,unnecessarily_downgraded_correct,error_reduction_vs_baseline_pct,selective_prediction_auroc
+A: Confidence Only,Calibrated confidence,50.92,0.8555,0.1445,657,624,18.08,0.7785
+B: Confidence + D1,Calibrated confidence + JSD,51.11,0.8583,0.1417,660,616,18.36,0.7805
+C: Confidence + D3,Calibrated confidence + Categorical Disagreement,50.65,0.8638,0.1362,669,619,18.91,0.7826
+D: Confidence + D1 + D3,Confidence + JSD + Categorical Disagreement,46.28,0.8709,0.1291,693,709,19.61,0.7814
+E: Confidence + D1 + D3 + Entropy,Complete multimodal reliability formulation,45.75,0.8702,0.1298,694,722,19.55,0.7793

@@ -1,0 +1,73 @@
+project: "H.E.A.R.T. AI \u2014 ElderReact Official"
+version: 1.0.0
+repo_commit: 8a0ae96
+date: '2026-10-26'
+paths:
+  repo: /Users/shreee/Downloads/ElderReact_official_repo
+  videos: /Users/shreee/Desktop/heart-ai-main copy/ElderReact_Data
+  results: /Users/shreee/Desktop/heart-ai-main copy/results/elderreact/official
+  checkpoints: /Users/shreee/Desktop/heart-ai-main copy/results/elderreact/official/checkpoints
+labels:
+  names:
+  - Anger
+  - Disgust
+  - Fear
+  - Happiness
+  - Sadness
+  - Surprise
+  n_classes: 6
+  task: multi-label-binary
+  threshold_default: 0.5
+features:
+  audio:
+    source: COVAREP
+    raw_dim: 148
+    subset_slices:
+    - - 0
+      - 36
+    - - 74
+      - 110
+    dim: 72
+    nan_rows_test:
+    - 289
+  video:
+    source: OpenFace
+    raw_dim: 1418
+    subset_slices:
+    - - 0
+      - 8
+    - - 288
+      - 294
+    - - 634
+      - 717
+    - - 997
+      - 1003
+    - - 1343
+      - 1418
+    dim: 178
+  fused_dim: 250
+splits:
+  train:
+    n_samples: 615
+  dev:
+    n_samples: 355
+  test:
+    n_samples: 353
+    known_nan_test_rows:
+    - 289
+training:
+  random_seed: 42
+  scaler: MinMaxScaler
+  loss: BCEWithLogitsLoss
+models:
+  ER_A:
+    name: Standard Fusion Baseline
+    architecture: MLP(128,64) ReLU on concat(audio, visual)
+  ER_B:
+    name: Disagreement-Aware Fusion
+    architecture: MLP(128,64) ReLU on concat(audio, visual, disagreement_features)
+    disagreement: per-emotion sigmoid-level Bernoulli JSD between audio and visual
+  ER_C:
+    name: Reliability-Aware Fusion
+    architecture: 'Gated features: audio * gate_a, visual * gate_v, then MLP'
+    gating: gate = confidence * (1 - entropy), fitted on dev

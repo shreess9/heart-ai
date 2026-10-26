@@ -1,0 +1,8 @@
+policy,parameter,value,target_tier
+Policy 1 (Confidence-Only),High Confidence Threshold,0.6659088134765625,Strong Adaptation
+Policy 1 (Confidence-Only),Low Confidence Threshold,0.4312435984611511,Neutral Response Cutoff
+Clarification Trigger,D1 Conflict Threshold (75th pct),0.5308482965050028,Clarification
+Policy 2 (Conf+D1+D3),High Trust Score Threshold,0.7241187263036238,Strong Adaptation
+Policy 2 (Conf+D1+D3),Low Trust Score Threshold,0.4916123475728034,Neutral Response Cutoff
+Policy 3 (Conf+D1+D3+Entropy),High Reliability Score Threshold,0.7184419383091085,Strong Adaptation
+Policy 3 (Conf+D1+D3+Entropy),Low Reliability Score Threshold,0.48834630241353477,Neutral Response Cutoff

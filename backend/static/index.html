@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H.E.A.R.T. AI — Emotion-Aware Companion for Older Adults</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/app.css?v=20260917">
+  <style>
+    /* Critical subpanel toggle — inline to avoid cache issues */
+    .res-subpanel { display: none !important; }
+    .res-subpanel.active { display: block !important; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="logo-mark">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </div>
+        <div class="title-group">
+          <div class="title-row">
+            <h1>H.E.A.R.T. AI</h1>
+            <span class="badge-research">Multimodal Demonstrator</span>
+          </div>
+          <p class="subtitle">Emotion-Aware Companion for Older Adults &bull; <span class="research-focus">Reliability-Aware Multimodal Emotion Understanding</span></p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="status-pill connected" id="server-status">
+          <span class="status-dot"></span> Backend Active
+        </div>
+        <div class="status-pill llm-pill" id="header-llm-status">
+          <span class="status-dot llm-dot"></span> Gemini Live
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" id="tab-btn-companion" onclick="switchTab('companion')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        H.E.A.R.T. AI Companion
+      </button>
+      <button class="nav-tab" id="tab-btn-research" onclick="switchTab('research')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+        Research & Validation Console
+      </button>
+      <button class="nav-tab" id="tab-btn-pipeline" onclick="switchTab('pipeline')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        System Pipeline & Architecture
+      </button>
+      <button class="nav-tab" id="tab-btn-evidence" onclick="switchTab('evidence')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Research Evidence (MELD Benchmark)
+      </button>
+      <button class="nav-tab" id="tab-btn-ethics" onclick="switchTab('ethics')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Responsible AI & Ethics
+      </button>
+    </nav>
+
+    <!-- TAB 1: MAIN H.E.A.R.T. AI COMPANION (SINGLE MP4 WORKFLOW) -->
+    <main id="tab-companion" class="tab-content active">
+
+      <!-- Section 1: Single Video Upload -->
+      <section class="card upload-primary-card">
+        <div class="section-header">
+          <div class="header-left-title">
+            <span class="step-num">1</span>
+            <h2>Upload Conversation Video</h2>
+          </div>
+          <span class="mode-badge-live">Live Multimodal Pipeline</span>
+        </div>
+
+        <p class="panel-desc">
+          Upload a single conversation video (MP4). H.E.A.R.T. AI automatically decomposes the media container into audio and video tracks, then runs four models in sequence:
+          <b>Whisper ASR</b> (speech → text transcript) → <b>RoBERTa</b> (transcript → text emotion) • <b>Wav2Vec2 SER</b> (audio prosody → speech emotion) • <b>ViT FER</b> (video frames → facial emotion).
+        </p>
+
+        <div class="single-dropzone-wrap">
+          <div class="file-dropzone single-mp4-dropzone" id="primary-mp4-dropzone" onclick="document.getElementById('primary-video-input').click()">
+            <input type="file" id="primary-video-input" accept=".mp4,.mov,.webm,.avi,.mkv,.m4v" style="display: none;" onchange="onPrimaryVideoSelected(this)">
+            <div class="dropzone-content">
+              <div class="drop-icon-animated">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                  <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg>
+              </div>
+              <span class="drop-text" id="primary-video-name-display">Choose Conversation Video or Drag & Drop</span>
+              <span class="drop-sub">Supported formats: MP4, MOV, WebM &bull; Automatic T + A + V Pipeline</span>
+            </div>
+          </div>
+
+          <div class="file-selected-bar" id="primary-video-selected-bar" style="display: none;">
+            <div class="file-selected-info">
+              <span class="file-icon">&#127916;</span>
+              <span class="file-name" id="primary-video-file-label">--</span>
+              <span class="file-size-tag" id="primary-video-size-tag">-- MB</span>
+            </div>
+            <button type="button" class="btn-clear-file" onclick="clearPrimaryVideo(event)">&times; Remove Video</button>
+          </div>
+        </div>
+
+        <div class="upload-actions-row">
+          <button id="btn-analyze-primary-mp4" class="btn-primary-large" onclick="analyzePrimaryVideo()">
+            <span class="btn-icon">&#9654;</span> Analyze Conversation Video
+          </button>
+          <button id="btn-reset-primary" class="btn-secondary" onclick="clearPrimaryVideo(event)">
+            Clear
+          </button>
+          <div class="pipeline-caps-badge">
+            <span>&#9889; Whisper ASR → RoBERTa Text Emotion &bull; Wav2Vec2 SER &bull; ViT FER &bull; Gemini Attunement</span>
+          </div>
+        </div>
+
+        <!-- 7-Stage Visible Pipeline Telemetry -->
+        <div class="pipeline-progress-container" id="pipeline-progress-container" style="display: none;">
+          <div class="pipeline-progress-head">
+            <span class="progress-title">Pipeline Execution Telemetry</span>
+            <span class="progress-stage-label" id="progress-stage-label">Step 1 of 7: Extracting Media Tracks...</span>
+          </div>
+          <div class="pipeline-steps-grid">
+            <div class="pipeline-step-pill" id="step-1"><span class="step-dot"></span> 1. Extracting Media</div>
+            <div class="pipeline-step-pill" id="step-2"><span class="step-dot"></span> 2. Whisper ASR</div>
+            <div class="pipeline-step-pill" id="step-3"><span class="step-dot"></span> 3. Wav2Vec2 SER</div>
+            <div class="pipeline-step-pill" id="step-4"><span class="step-dot"></span> 4. ViT Facial FER</div>
+            <div class="pipeline-step-pill" id="step-5"><span class="step-dot"></span> 5. Dynamic Fusion</div>
+            <div class="pipeline-step-pill" id="step-6"><span class="step-dot"></span> 6. Reliability Gate</div>
+            <div class="pipeline-step-pill" id="step-7"><span class="step-dot"></span> 7. Gemini Response</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESULTS CONTAINER (IDLE / LOADING / ERROR / SUCCESS) -->
+      <div id="results-wrapper">
+
+        <!-- IDLE STATE -->
+        <div id="results-idle" class="results-state-card active">
+          <div class="idle-graphic">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3>Upload a Conversation Video or Select a Benchmark Sample</h3>
+          <p>Select or drag and drop an MP4 conversation video above, or explore the <b>Research & Validation Console</b> tab to test canonical MELD test samples, controlled disagreement scenarios, and live text uncertainty.</p>
+        </div>
+
+        <!-- LOADING STATE -->
+        <div id="results-loading" class="results-state-card">
+          <div class="spinner"></div>
+          <h3 id="loading-title">Analyzing Conversation Video...</h3>
+          <p id="loading-status-text">Decomposing media container and transcribing speech via OpenAI Whisper...</p>
+        </div>
+
+        <!-- ERROR STATE -->
+        <div id="results-error" class="results-state-card error-card">
+          <div class="error-icon">&#9888;</div>
+          <h3>Analysis Failed</h3>
+          <p id="results-error-msg">An unexpected error occurred.</p>
+          <button id="btn-retry" class="btn-secondary" onclick="retryLastAction()">Retry Analysis</button>
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div id="results-success" class="results-state-card">
+          
+          <!-- Analyzed Utterance Banner -->
+          <div class="analyzed-utterance-banner">
+            <div class="banner-left">
+              <span class="banner-label">Transcribed Spoken Utterance:</span>
+              <span class="banner-quote" id="analyzed-utterance-display">"..."</span>
+            </div>
+            <div class="banner-right-meta">
+              <span class="transcript-source-pill" id="transcript-source-pill">Automatic Speech Recognition (Whisper)</span>
+              <span class="badge-mode" id="analysis-mode-badge">Live MP4 Inference</span>
+            </div>
+          </div>
+
+          <!-- Media Decomposition Status Strip -->
+          <div class="media-decomposition-strip" id="media-decomposition-strip">
+            <div class="decomp-item" id="decomp-video">
+              <span class="decomp-icon">&#127916;</span>
+              <div class="decomp-info">
+                <span class="decomp-title">Video Track</span>
+                <span class="decomp-sub" id="decomp-video-sub">1280x720 &bull; 24.0 fps &bull; 6.8s</span>
+              </div>
+            </div>
+            <div class="decomp-item" id="decomp-audio">
+              <span class="decomp-icon">&#127908;</span>
+              <div class="decomp-info">
+                <span class="decomp-title">Audio Track</span>
+                <span class="decomp-sub" id="decomp-audio-sub">16000Hz mono float32 &bull; RMS=0.084</span>
+              </div>
+            </div>
+            <div class="decomp-item" id="decomp-asr">
+              <span class="decomp-icon">&#128172;</span>
+              <div class="decomp-info">
+                <span class="decomp-title">ASR Transcript</span>
+                <span class="decomp-sub" id="decomp-asr-sub">OpenAI Whisper Tiny &bull; 21 words</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Modality Evidence (3 Cards) -->
+          <div class="section-title-wrap">
+            <span class="step-num">2</span>
+            <h3>Modality Emotion Evidence (Unimodal Perception)</h3>
+          </div>
+          <div class="grid-3-cols modality-grid">
+            <!-- Text Card -->
+            <div class="card modality-card" id="card-text">
+              <div class="card-head">
+                <div class="modality-badge text-mod">
+                  <span class="mod-icon">&#128172;</span> TEXT MODALITY
+                </div>
+                <span class="encoder-tag" id="text-encoder-tag">RoBERTa (roberta-base)</span>
+              </div>
+              <div class="modality-source-row">
+                <span class="source-tag" id="text-source-tag">Source: Whisper ASR</span>
+              </div>
+              <div class="transcript-preview-box" id="text-transcript-preview">
+                <span class="t-label">Transcript:</span>
+                <span class="t-text" id="text-transcript-text">"..."</span>
+              </div>
+              <div class="emotion-pred-row">
+                <div class="pred-label-wrap">
+                  <span class="pred-label" id="text-pred-emotion">--</span>
+                  <span class="pred-sub" id="text-status-badge">Analyzed</span>
+                </div>
+                <div class="conf-pill" id="text-conf-pill">--% Conf</div>
+              </div>
+              <div class="distribution-bars" id="text-dist-bars"></div>
+              <div class="modality-meta-box" id="text-meta-box" style="display: none;"></div>
+            </div>
+
+            <!-- Audio Card -->
+            <div class="card modality-card" id="card-audio">
+              <div class="card-head">
+                <div class="modality-badge audio-mod">
+                  <span class="mod-icon">&#127908;</span> AUDIO MODALITY
+                </div>
+                <span class="encoder-tag" id="audio-encoder-tag">Wav2Vec2 (wav2vec2-lg-xlsr)</span>
+              </div>
+              <div class="modality-source-row">
+                <span class="source-tag" id="audio-source-tag">Source: Extracted Audio Track</span>
+              </div>
+              <div class="emotion-pred-row">
+                <div class="pred-label-wrap">
+                  <span class="pred-label" id="audio-pred-emotion">--</span>
+                  <span class="pred-sub" id="audio-status-badge">Speech Emotion Inferred</span>
+                </div>
+                <div class="conf-pill" id="audio-conf-pill">--% Conf</div>
+              </div>
+              <div class="distribution-bars" id="audio-dist-bars"></div>
+              <div class="modality-meta-box" id="audio-meta-box" style="display: none;"></div>
+            </div>
+
+            <!-- Visual Card -->
+            <div class="card modality-card" id="card-visual">
+              <div class="card-head">
+                <div class="modality-badge visual-mod">
+                  <span class="mod-icon">&#128247;</span> VISUAL MODALITY
+                </div>
+                <span class="encoder-tag" id="visual-encoder-tag">ViT (vit-face-emotion-recognition)</span>
+              </div>
+              <div class="modality-source-row">
+                <span class="source-tag" id="visual-source-tag">Source: Video Frames + Face Detector</span>
+              </div>
+              <div class="emotion-pred-row">
+                <div class="pred-label-wrap">
+                  <span class="pred-label" id="visual-pred-emotion">--</span>
+                  <span class="pred-sub" id="visual-status-badge">Facial Emotion Inferred</span>
+                </div>
+                <div class="conf-pill" id="visual-conf-pill">--% Conf</div>
+              </div>
+              <div class="distribution-bars" id="visual-dist-bars"></div>
+              <div class="modality-meta-box" id="visual-meta-box" style="display: none;"></div>
+            </div>
+          </div>
+
+          <!-- Section 3 & 4: Fusion & Disagreement Analysis -->
+          <div class="grid-2-cols fusion-disagree-grid">
+            <!-- Fusion Card -->
+            <div class="card fusion-card">
+              <div class="card-head">
+                <div class="section-title-inline">
+                  <span class="step-num">3</span>
+                  <h3>Multimodal Fusion & Emotion</h3>
+                </div>
+                <span class="fusion-tag" id="fusion-arch-tag">Dynamic Early Fusion</span>
+              </div>
+              <div class="fusion-flow-visual">
+                <div class="flow-mod-nodes">
+                  <span class="node text-node">Text: <b id="flow-t-emo">--</b></span>
+                  <span class="plus">+</span>
+                  <span class="node audio-node">Audio: <b id="flow-a-emo">--</b></span>
+                  <span class="plus">+</span>
+                  <span class="node visual-node">Visual: <b id="flow-v-emo">--</b></span>
+                </div>
+                <div class="flow-arrow">&darr; Multimodal Fusion & Calibration &darr;</div>
+              </div>
+
+              <div class="fused-output-row">
+                <div class="fused-emotion-box">
+                  <span class="fused-title">Fused Predicted Emotion:</span>
+                  <span class="fused-emotion-name" id="fused-emotion-name">--</span>
+                </div>
+                <div class="fused-metrics-box">
+                  <div class="metric-line">
+                    <span>Calibrated Confidence:</span>
+                    <b id="fused-conf-val">--%</b>
+                  </div>
+                  <div class="metric-line">
+                    <span>Raw Confidence:</span>
+                    <span id="fused-raw-conf">--%</span>
+                  </div>
+                  <div class="metric-line">
+                    <span>Predictive Entropy (H):</span>
+                    <span id="fused-entropy-val">--</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fused-distribution-bars" id="fused-dist-bars"></div>
+            </div>
+
+            <!-- Disagreement Engine Card -->
+            <div class="card disagree-card">
+              <div class="card-head">
+                <div class="section-title-inline">
+                  <span class="step-num">4</span>
+                  <h3>Cross-Modal Disagreement</h3>
+                </div>
+                <span class="disagree-badge-pill" id="disagree-level-badge">--</span>
+              </div>
+
+              <div class="disagree-metrics-grid">
+                <div class="d-metric-box">
+                  <span class="d-label">D₁: Generalized JSD</span>
+                  <span class="d-val" id="d1-val">--</span>
+                  <span class="d-sub">Distributional Divergence [0, 1]</span>
+                </div>
+                <div class="d-metric-box">
+                  <span class="d-label">D₂: Mean Pairwise JSD</span>
+                  <span class="d-val" id="d2-val">--</span>
+                  <span class="d-sub">Average Pairwise Distance</span>
+                </div>
+                <div class="d-metric-box">
+                  <span class="d-label">D₃: Categorical Disagree</span>
+                  <span class="d-val" id="d3-val">--</span>
+                  <span class="d-sub">Distinct Top-1 Predictions</span>
+                </div>
+              </div>
+
+              <div class="disagree-status-banner" id="disagree-status-banner">
+                <span class="status-icon" id="disagree-icon">&#9432;</span>
+                <span class="status-text" id="disagree-status-text">--</span>
+              </div>
+
+              <div class="disagree-explanation-box">
+                <p id="disagree-explanation">--</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5 & 6: Reliability Gate & Response Adaptation -->
+          <section class="card reliability-section">
+            <div class="section-header">
+              <div class="header-left-title">
+                <span class="step-num">5</span>
+                <h2>Reliability Gate & Adaptive Conversational Policy</h2>
+              </div>
+              <div class="reliability-badges-wrap">
+                <span class="rel-pill" id="reliability-level-pill">Reliability: --</span>
+                <span class="policy-pill" id="adaptation-policy-pill">Strategy: --</span>
+              </div>
+            </div>
+
+            <div class="grid-2-cols rel-policy-grid">
+              <div class="rel-rationale-card">
+                <h4>Reliability Gate Decision Rationale:</h4>
+                <p class="rel-reason-text" id="rel-reason-text">--</p>
+                <div class="rel-formula-box">
+                  <code>Reliability = f(Confidence, D₁, D₃, Entropy)</code>
+                </div>
+                <p class="rel-safety-guidance" id="rel-safety-guidance">--</p>
+              </div>
+
+              <div class="rel-gate-visual-card">
+                <h4>Response Strategy Authority:</h4>
+                <div class="gate-tiers-visual">
+                  <div class="gate-tier" id="gate-strong">
+                    <div class="gate-indicator"></div>
+                    <div class="gate-info">
+                      <span class="gate-title">STRONG ADAPTATION</span>
+                      <span class="gate-sub">High reliability &bull; Concordant multimodal evidence</span>
+                    </div>
+                  </div>
+                  <div class="gate-tier" id="gate-cautious">
+                    <div class="gate-indicator"></div>
+                    <div class="gate-info">
+                      <span class="gate-title">CAUTIOUS ADAPTATION</span>
+                      <span class="gate-sub">Medium reliability &bull; Mild uncertainty or divergence</span>
+                    </div>
+                  </div>
+                  <div class="gate-tier" id="gate-neutral">
+                    <div class="gate-indicator"></div>
+                    <div class="gate-info">
+                      <span class="gate-title">NEUTRAL / CLARIFICATION</span>
+                      <span class="gate-sub">Low reliability or conflict &bull; Grounded clarification</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 7: Conversational Manager & Companion View -->
+          <section class="card companion-section">
+            <div class="section-header">
+              <div class="header-left-title">
+                <span class="step-num">6</span>
+                <h2>H.E.A.R.T. AI Companion Response</h2>
+              </div>
+              <div class="companion-header-actions">
+                <span class="llm-status-badge" id="llm-status-badge">Gemini Companion Active</span>
+                <button type="button" class="btn-clear-chat" id="btn-clear-chat" onclick="clearConversationHistory()" title="Clear conversation history">
+                  &circlearrowleft; Reset Conversation
+                </button>
+              </div>
+            </div>
+
+            <!-- Multi-Turn Conversation Stream -->
+            <div class="chat-container">
+              <div class="chat-history-stream" id="chat-history-stream">
+                <!-- User message (Latest Turn) -->
+                <div class="chat-turn user-turn">
+                  <div class="avatar user-avatar">&#129489;</div>
+                  <div class="bubble-wrap">
+                    <span class="speaker-label">Older Adult (User Spoken Input)</span>
+                    <div class="chat-bubble user-bubble" id="chat-user-msg">"..."</div>
+                  </div>
+                </div>
+
+                <!-- Assistant response (Latest Turn) -->
+                <div class="chat-turn assistant-turn">
+                  <div class="avatar bot-avatar">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </div>
+                  <div class="bubble-wrap">
+                    <div class="assistant-head-row">
+                      <span class="speaker-label">H.E.A.R.T. AI Companion</span>
+                      <span class="llm-generation-tag" id="llm-generation-tag">Gemini LLM</span>
+                    </div>
+                    <div class="chat-bubble assistant-bubble" id="chat-bot-reply">"..."</div>
+
+                    <!-- Compact telemetry badge -->
+                    <div class="telemetry-bar">
+                      <span class="tele-item">Emotion: <b id="tele-emo">--</b></span>
+                      <span class="tele-sep">&bull;</span>
+                      <span class="tele-item">Confidence: <b id="tele-conf">--%</b></span>
+                      <span class="tele-sep">&bull;</span>
+                      <span class="tele-item">Disagreement: <b id="tele-dis">--</b></span>
+                      <span class="tele-sep">&bull;</span>
+                      <span class="tele-item">Reliability: <b id="tele-rel">--</b></span>
+                      <span class="tele-sep">&bull;</span>
+                      <span class="tele-item">Policy: <b class="tele-policy-badge" id="tele-policy">--</b></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Why this response accordion -->
+            <details class="explainability-details" open>
+              <summary class="explain-summary">
+                <span class="summary-icon">&#128269;</span>
+                <span class="summary-title">Why did H.E.A.R.T. AI respond this way? (Explainability & Reliability Rationale)</span>
+              </summary>
+              <div class="explain-body" id="explain-body-text">--</div>
+            </details>
+          </section>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 2: RESEARCH & VALIDATION CONSOLE (MELD BENCHMARK, SCENARIOS & CUSTOM TEXT) -->
+    <section id="tab-research" class="tab-content">
+      <div class="card research-panel-card">
+        <div class="section-header">
+          <div class="header-left-title">
+            <span class="step-num">&#9878;</span>
+            <h2>Research Validation & Benchmark Console</h2>
+          </div>
+          <div class="research-sub-nav">
+            <button class="mode-pill-btn active" id="btn-res-meld" onclick="setResearchSubMode('meld')">
+              <span class="pill-icon">&#128202;</span> MELD Test Explorer (2,610 Samples)
+            </button>
+            <button class="mode-pill-btn" id="btn-res-demo" onclick="setResearchSubMode('demo')">
+              <span class="pill-icon">&#9874;</span> Controlled Scenarios
+            </button>
+            <button class="mode-pill-btn" id="btn-res-text" onclick="setResearchSubMode('text')">
+              <span class="pill-icon">&#128172;</span> Manual Text Testing
+            </button>
+          </div>
+        </div>
+
+        <!-- SUBMODE A: MELD SAMPLES -->
+        <div id="res-panel-meld" class="res-subpanel active">
+          <p class="panel-desc">
+            Explore authentic dialogue utterances from the locked <b>MELD Test Set</b> (2,610 samples across 280 dialogue clusters). Canonical unimodal text, audio, and visual prediction distributions from deterministic evaluation are loaded and evaluated through the reliability gate.
+          </p>
+
+          <!-- Quick Emotion Filters -->
+          <div class="meld-filter-strip">
+            <span class="filter-label">Filter by Emotion:</span>
+            <div class="filter-chips-row">
+              <button class="filter-chip active" id="filter-chip-all" onclick="filterMeldSamples('all')">All</button>
+              <button class="filter-chip emo-chip-joy" id="filter-chip-joy" onclick="filterMeldSamples('joy')">Joy</button>
+              <button class="filter-chip emo-chip-sadness" id="filter-chip-sadness" onclick="filterMeldSamples('sadness')">Sadness</button>
+              <button class="filter-chip emo-chip-anger" id="filter-chip-anger" onclick="filterMeldSamples('anger')">Anger</button>
+              <button class="filter-chip emo-chip-surprise" id="filter-chip-surprise" onclick="filterMeldSamples('surprise')">Surprise</button>
+              <button class="filter-chip emo-chip-fear" id="filter-chip-fear" onclick="filterMeldSamples('fear')">Fear</button>
+              <button class="filter-chip emo-chip-disgust" id="filter-chip-disgust" onclick="filterMeldSamples('disgust')">Disgust</button>
+              <button class="filter-chip emo-chip-neutral" id="filter-chip-neutral" onclick="filterMeldSamples('neutral')">Neutral</button>
+            </div>
+            <button class="btn-random-sample" onclick="pickRandomMeldSample()">
+              <span>&#127922;</span> Random Sample
+            </button>
+          </div>
+
+          <div class="meld-picker-grid">
+            <div class="meld-select-group">
+              <label for="meld-sample-select">Choose Dialogue Sample (<span id="meld-sample-count">100 loaded</span>):</label>
+              <div class="select-wrapper">
+                <select id="meld-sample-select" class="meld-select-control" onchange="onMeldSampleSelected()">
+                  <option value="">Select a MELD sample...</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="meld-preview-box">
+              <div class="meld-meta-row">
+                <span class="meta-tag meta-speaker" id="meld-speaker-tag">Speaker: --</span>
+                <span class="meta-tag meta-emotion" id="meld-emotion-tag">Ground Truth: --</span>
+                <span class="meta-tag meta-sentiment" id="meld-sentiment-tag">Sentiment: --</span>
+              </div>
+              <div class="meld-utterance-text" id="meld-sample-display-text">
+                "Select a sample from the dropdown or click 'Random Sample' above..."
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button id="btn-analyze-meld" class="btn-primary" onclick="analyzeMeldSelection()">
+              <span class="btn-icon">&#9654;</span> Analyze Selected MELD Utterance
+            </button>
+          </div>
+        </div>
+
+        <!-- SUBMODE B: CONTROLLED SCENARIOS -->
+        <div id="res-panel-demo" class="res-subpanel">
+          <div class="demo-notice-bar">
+            <span class="banner-icon">&#9432;</span>
+            <span>CONTROLLED BENCHMARK SCENARIOS — PREDEFINED ILLUSTRATIVE VALUES</span>
+          </div>
+          <p class="panel-desc">
+            Controlled demonstration scenarios illustrating how cross-modal disagreement (D₁, D₃) interacts with calibrated confidence to govern the Reliability Gate and conversational action tier.
+          </p>
+
+          <div class="scenario-cards-grid">
+            <div class="scenario-card scenario-card-agreement" onclick="runDemoScenario('strong_agreement')">
+              <div class="sc-head">
+                <span class="sc-title">1. Strong Multimodal Agreement</span>
+                <span class="sc-badge high">High Reliability</span>
+              </div>
+              <p class="sc-desc">Text, audio, and visual modalities all express Joy with high concordant confidence.</p>
+              <div class="sc-metrics-pills">
+                <span class="sc-metric-tag">D₁ ≈ 0.04</span>
+                <span class="sc-metric-tag">D₃ = 0</span>
+                <span class="sc-metric-tag policy-tag">Strong Adaptation</span>
+              </div>
+              <button class="btn-scenario-action">Run Strong Agreement &rarr;</button>
+            </div>
+
+            <div class="scenario-card scenario-card-moderate" onclick="runDemoScenario('moderate_disagreement')">
+              <div class="sc-head">
+                <span class="sc-title">2. Moderate Disagreement</span>
+                <span class="sc-badge medium">Medium Reliability</span>
+              </div>
+              <p class="sc-desc">Text expresses mild sadness, but audio and visual signals show neutrality or slight divergence.</p>
+              <div class="sc-metrics-pills">
+                <span class="sc-metric-tag">D₁ ≈ 0.28</span>
+                <span class="sc-metric-tag">D₃ = 1</span>
+                <span class="sc-metric-tag policy-tag">Cautious Adaptation</span>
+              </div>
+              <button class="btn-scenario-action">Run Moderate Disagreement &rarr;</button>
+            </div>
+
+            <div class="scenario-card scenario-card-conflict" onclick="runDemoScenario('strong_conflict')">
+              <div class="sc-head">
+                <span class="sc-title">3. Strong Cross-Modal Conflict</span>
+                <span class="sc-badge low">Low Reliability</span>
+              </div>
+              <p class="sc-desc">Verbal words sound positive, but acoustic prosody is angry and facial tension reveals distress.</p>
+              <div class="sc-metrics-pills">
+                <span class="sc-metric-tag">D₁ ≈ 0.58</span>
+                <span class="sc-metric-tag">D₃ = 2</span>
+                <span class="sc-metric-tag policy-tag">Clarification Query</span>
+              </div>
+              <button class="btn-scenario-action">Run Strong Conflict &rarr;</button>
+            </div>
+
+            <div class="scenario-card scenario-card-ambiguity" onclick="runDemoScenario('low_confidence')">
+              <div class="sc-head">
+                <span class="sc-title">4. Low Confidence / Ambiguity</span>
+                <span class="sc-badge low">Low Reliability</span>
+              </div>
+              <p class="sc-desc">All modalities produce diffuse, near-uniform probability distributions with high predictive entropy.</p>
+              <div class="sc-metrics-pills">
+                <span class="sc-metric-tag">Entropy H &gt; 1.5</span>
+                <span class="sc-metric-tag">Conf &lt; 40%</span>
+                <span class="sc-metric-tag policy-tag">Neutral Grounding</span>
+              </div>
+              <button class="btn-scenario-action">Run Low Confidence &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBMODE C: MANUAL TEXT -->
+        <div id="res-panel-text" class="res-subpanel">
+          <p class="panel-desc">
+            Type an arbitrary conversational utterance. H.E.A.R.T. AI will process your <b>exact text</b> through RoBERTa, evaluate single-modality uncertainty, and formulate a reliability-governed response without fabricating absent audio/visual sensor data.
+          </p>
+
+          <!-- Quick Test Prompts -->
+          <div class="sample-prompts-row">
+            <span class="sample-prompts-label">Sample Prompts:</span>
+            <button class="prompt-chip" onclick="setCustomPrompt('I spent the morning in the garden with the flowers, it brought back lovely memories.')">
+              🌸 Garden Memories (Joy)
+            </button>
+            <button class="prompt-chip" onclick="setCustomPrompt('I have been feeling quite alone lately, nobody has called all week.')">
+              🌧️ Feeling Alone (Sadness)
+            </button>
+            <button class="prompt-chip" onclick="setCustomPrompt('I can\'t find my glasses anywhere and it is very frustrating!')">
+              ⚡ Lost Glasses (Anger/Frustration)
+            </button>
+          </div>
+
+          <div class="input-row">
+            <input type="text" id="user-utterance-input" placeholder="Enter an utterance to analyze (e.g. 'I had a wonderful visit with my grandchildren today!')..." autocomplete="off">
+            <button id="btn-analyze-custom" class="btn-primary" onclick="analyzeCustomInput()">
+              <span class="btn-icon">&#9654;</span> Analyze Text
+            </button>
+            <button id="btn-clear-custom" class="btn-secondary" onclick="clearCustomInput()">
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: SYSTEM PIPELINE & ARCHITECTURE -->
+    <section id="tab-pipeline" class="tab-content">
+      <div class="card">
+        <div class="card-head">
+          <div class="section-title-inline">
+            <span class="step-num">&#9881;</span>
+            <h2>H.E.A.R.T. AI Technical Architecture & Pipeline Flow</h2>
+          </div>
+          <span class="badge-research">7-Stage Technical Architecture</span>
+        </div>
+        <p class="pipeline-intro">
+          The core innovation of H.E.A.R.T. AI is decoupling <b>emotion classification</b> from <b>reliability-gated response adaptation</b>.
+          The companion does not simply adapt to raw predictions; it evaluates cross-modal disagreement and confidence before selecting a conversational action tier.
+        </p>
+
+        <div class="architecture-flow-diagram">
+          <div class="pipeline-step-box">
+            <span class="p-num">Stage 1</span>
+            <span class="p-title">Older Adult Conversation (Single MP4 Media Container)</span>
+            <span class="p-sub">Automatic Decomposition &bull; Video frames (24 fps) &bull; 16kHz mono audio waveform</span>
+          </div>
+          <div class="p-arrow">&darr;</div>
+
+          <div class="pipeline-step-box">
+            <span class="p-num">Stage 2</span>
+            <span class="p-title">Pretrained Modality Encoders</span>
+            <span class="p-sub">Whisper ASR &rarr; RoBERTa (Text) &bull; Wav2Vec 2.0 (Audio SER) &bull; ViT (Visual Face FER)</span>
+          </div>
+          <div class="p-arrow">&darr;</div>
+
+          <div class="pipeline-step-box">
+            <span class="p-num">Stage 3</span>
+            <span class="p-title">Modality Emotion Evidence Distributions</span>
+            <span class="p-sub">P_text &bull; P_audio &bull; P_visual (7-Class Categorical Probability Distributions)</span>
+          </div>
+          <div class="p-arrow">&darr;</div>
+
+          <div class="pipeline-split-row">
+            <div class="pipeline-step-box branch-box">
+              <span class="p-num">Stage 4A</span>
+              <span class="p-title">Multimodal Fusion Layer</span>
+              <span class="p-sub">Dynamic Early Fusion &bull; Calibration<br>&rarr; <b>Predicted Emotion + Confidence</b></span>
+            </div>
+            <div class="pipeline-step-box branch-box highlight-branch">
+              <span class="p-num">Stage 4B</span>
+              <span class="p-title">Cross-Modal Disagreement Engine</span>
+              <span class="p-sub"><b>D₁</b>: Generalized JSD &bull; <b>D₂</b>: Pairwise &bull; <b>D₃</b>: Categorical<br>&rarr; <b>Cross-Modal Incongruity Signal</b></span>
+            </div>
+          </div>
+          <div class="p-arrow">&darr;</div>
+
+          <div class="pipeline-step-box">
+            <span class="p-num">Stage 5</span>
+            <span class="p-title">Reliability Assessment Engine</span>
+            <span class="p-sub">Fuses Confidence + D₁ + D₃ + Entropy &rarr; <b>Reliability Level: HIGH / MEDIUM / LOW</b></span>
+          </div>
+          <div class="p-arrow">&darr;</div>
+
+          <div class="pipeline-step-box">
+            <span class="p-num">Stage 6</span>
+            <span class="p-title">Reliability Gate & Adaptive Conversational Policy</span>
+            <span class="p-sub">
+              &bull; <b>HIGH</b> &rarr; Strong Emotion Adaptation<br>
+              &bull; <b>MEDIUM</b> &rarr; Cautious / Tentative Adaptation<br>
+              &bull; <b>LOW</b> &rarr; Neutral Supportive / Clarification Query
+            </span>
+          </div>
+          <div class="p-arrow">&darr;</div>
+
+          <div class="pipeline-step-box final-step">
+            <span class="p-num">Stage 7</span>
+            <span class="p-title">H.E.A.R.T. AI Companion Response Generation (Gemini LLM)</span>
+            <span class="p-sub">Conversational grounding tailored for older adult companionship with zero clinical intrusion</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: RESEARCH EVIDENCE -->
+    <section id="tab-evidence" class="tab-content">
+      <div class="card">
+        <div class="card-head">
+          <div class="section-title-inline">
+            <span class="step-num">&#128200;</span>
+            <h2>Canonical Research Evaluation (MELD Test Set Benchmark)</h2>
+          </div>
+          <span class="badge-research">Verified Deterministic Benchmark</span>
+        </div>
+        <p class="evidence-disclaimer">
+          <b>Research Disclaimers:</b> The numbers below represent empirical evaluation on the locked MELD test set (2,610 utterances across 280 dialogue clusters). This is a computational policy simulation demonstrating classification error reduction; it does not establish human-perceived response appropriateness or clinical validation.
+        </p>
+
+        <div class="table-responsive">
+          <table class="research-table">
+            <thead>
+              <tr>
+                <th>Policy Formulation</th>
+                <th>Strong Adaptation Coverage (%)</th>
+                <th>Strong Adaptation Accuracy (%)</th>
+                <th>Strong Error Rate (%)</th>
+                <th>Net Error Reduction</th>
+                <th>Prevented Errors (Count)</th>
+                <th>Selective AUROC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Policy 0: Always Adapt (Naïve)</b></td>
+                <td>100.0% (2,610)</td>
+                <td>67.47%</td>
+                <td>32.53%</td>
+                <td>0.00 pp</td>
+                <td>0</td>
+                <td>0.7785</td>
+              </tr>
+              <tr>
+                <td><b>Policy 1: Confidence-Only</b></td>
+                <td>50.92% (1,329)</td>
+                <td>85.55%</td>
+                <td>14.45%</td>
+                <td>-18.08 pp</td>
+                <td>657</td>
+                <td>0.7785</td>
+              </tr>
+              <tr class="highlight-row">
+                <td><b>Policy 2: Reliability Gated (Conf + D₁/D₃)</b></td>
+                <td><b>46.28% (1,208)</b></td>
+                <td><b>87.09%</b></td>
+                <td><b>12.91%</b></td>
+                <td><b>-19.61 pp</b></td>
+                <td><b>693</b> (81.6% of errors prevented)</td>
+                <td><b>0.7814</b></td>
+              </tr>
+              <tr>
+                <td><b>Policy 3: Full Reliability (+Entropy)</b></td>
+                <td>45.75% (1,194)</td>
+                <td>87.02%</td>
+                <td>12.98%</td>
+                <td>-19.55 pp</td>
+                <td>694</td>
+                <td>0.7793</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="counterfactual-highlight-box">
+          <h4>Key Research Discovery on MELD:</h4>
+          <p>
+            On MELD dialogues, cross-modal disagreement (D₁ &approx; 0.55) peaks when <b>Text is correct and Audio/Visual sensors fail</b> (T₁_A₀_V₀).
+            Confidence alone fails to intercept these errors due to overconfidence in text representations.
+            <b>Disagreement-aware gating intercepts 693 emotion misclassifications (81.6% of all baseline errors)</b> and routes conflicting samples to Clarification queries.
+          </p>
+        </div>
+
+        <!-- Future Scope Note -->
+        <div class="future-scope-box">
+          <h4>Future Dataset & Modality Scope:</h4>
+          <p>
+            <b>Extension to older-adult-focused conversational datasets such as ElderReact</b> is planned for future work, subject to dataset availability, licensing, and multimodal sensor compatibility.
+            Additional directions include real-world noisy audio/video robustness, asynchronous modality arrival, personalized response adaptation thresholds, and longitudinal affective attunement.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: RESPONSIBLE AI & ETHICS -->
+    <section id="tab-ethics" class="tab-content">
+      <div class="card">
+        <div class="card-head">
+          <div class="section-title-inline">
+            <span class="step-num">&#128737;</span>
+            <h2>Responsible AI, Privacy & Clinical Scope</h2>
+          </div>
+          <span class="badge-research">Ethical Governance</span>
+        </div>
+
+        <div class="ethics-grid">
+          <div class="ethics-card">
+            <div class="ethics-icon">&#128104;&#8205;&#9877;&#65039;</div>
+            <h4>1. No Medical or Clinical Diagnosis</h4>
+            <p>H.E.A.R.T. AI is designed exclusively as an empathetic conversational companion for older adults. It does <b>NOT</b> diagnose depression, cognitive decline, anxiety, or any medical/psychiatric condition.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-icon">&#128274;</div>
+            <h4>2. Strict Opt-In Privacy</h4>
+            <p>Audio recording and camera inputs are strictly opt-in. Raw audio waveforms and video frames should not be retained beyond immediate turn inference unless explicitly consented.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-icon">&#9888;&#65039;</div>
+            <h4>3. Uncertainty-First Caution</h4>
+            <p>Emotion prediction is inherently uncertain and noisy in natural elder conversations. When multimodal evidence is conflicting or unconfident, the companion defaults to neutral supportive grounding.</p>
+          </div>
+          <div class="ethics-card">
+            <div class="ethics-icon">&#9881;&#65039;</div>
+            <h4>4. User Autonomy & Control</h4>
+            <p>Users and caregivers can disable emotion-aware adaptation at any time, returning the companion to standard non-adaptive conversational dialogue.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>H.E.A.R.T. AI &bull; B.Tech Final Year Project &bull; Reliability-Aware Multimodal Emotion Demonstrator &bull; Fast-Track Reproducible Architecture</p>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "model": "ER-Rich",
+  "audio_model": "covarep_subset",
+  "visual_model": "openface_full",
+  "test": {
+    "macro_f1": 0.39745438492474333,
+    "micro_f1": 0.46572237960339946,
+    "hamming": 0.4464962121212121,
+    "per_emotion": {
+      "Anger": 0.373134328358209,
+      "Disgust": 0.33170731707317075,
+      "Fear": 0.16129032258064516,
+      "Happiness": 0.6892430278884463,
+      "Sadness": 0.31272727272727274,
+      "Surprise": 0.5166240409207161
+    }
+  },
+  "comparison_vs_ERA": {
+    "era_macro_f1": 0.3701578894832,
+    "diff": 0.027296495441543334,
+    "note": "Permutation test requires ER-A sample-level F1s \u2014 run full comparison script"
+  },
+  "thresholds": [
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1
+  ],
+  "features": {
+    "audio_dim": 72,
+    "visual_dim": 1418
+  }
+}

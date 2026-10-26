@@ -1,0 +1,52 @@
+# Experiment and Evaluation Configuration
+# Governs reproducible benchmarking, statistical resampling, and metric computation
+
+experiment:
+  name: "meld_reliability_benchmark"
+  random_seed: 42
+  device: "cpu"
+  save_results: true
+  results_dir: "results"
+
+data:
+  benchmark_name: "MELD"
+  splits_dir: "data/splits"
+  train_split: "train.json"
+  val_split: "dev.json"
+  test_split: "test.json"
+  dialogue_cluster_col: "Dialogue_ID"
+  utterance_col: "Utterance_ID"
+  emotion_col: "Emotion"
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "macro_f1"
+    - "weighted_f1"
+    - "per_class_f1"
+    - "confusion_matrix"
+    - "ece" # Expected Calibration Error
+    - "mce" # Maximum Calibration Error
+    - "brier_score"
+    - "high_confidence_error_rate"
+    - "mean_predictive_entropy"
+    - "mean_jsd"
+  
+  calibration:
+    num_bins: 15
+    strategy: "uniform" # Options: "uniform" (equal width), "quantile" (equal mass)
+    optimize_temperature: true
+    lr: 0.01
+    max_iter: 100
+  
+  reliability:
+    high_confidence_threshold: 0.80
+    moderate_confidence_threshold: 0.50
+    low_confidence_threshold: 0.35
+  
+  bootstrap:
+    enabled: true
+    num_iterations: 1000
+    confidence_level: 0.95
+    resampling_level: "dialogue" # Options: "sample", "dialogue" (cluster bootstrap)
+    seed: 42

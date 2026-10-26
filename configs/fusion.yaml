@@ -1,0 +1,59 @@
+# Multimodal Fusion Architectures Configuration
+# Compares Model A (Baseline), Model B (Disagreement-Aware), and Model C (Reliability-Aware)
+
+model_a_baseline:
+  name: "baseline_mlp"
+  description: "Controlled baseline: Concatenation of modality feature embeddings passed through an MLP"
+  modality_dims:
+    text: 768
+    audio: 768
+    visual: 768
+  input_dim: 2304 # 768 * 3
+  hidden_dims: [512, 256]
+  dropout: 0.2
+  activation: "relu" # Options: "relu", "gelu"
+  num_classes: 7
+  use_disagreement: false
+  use_reliability: false
+
+model_b_disagreement_aware:
+  name: "disagreement_aware_mlp"
+  description: "Multimodal features combined with generalized JSD (D1), pairwise mean JSD (D2), and categorical disagreement one-hot (D3)"
+  modality_dims:
+    text: 768
+    audio: 768
+    visual: 768
+  disagreement_dim: 5 # D1 (1) + D2 (1) + D3 one-hot (3)
+  input_dim: 2309 # 2304 + 5
+  hidden_dims: [512, 256]
+  dropout: 0.2
+  activation: "relu"
+  num_classes: 7
+  use_disagreement: true
+  use_reliability: false
+
+model_c_reliability_aware:
+  name: "reliability_aware_attention"
+  description: "Multimodal features with cross-modal reliability gating, entropy weighting, calibrated confidence, and disagreement features"
+  modality_dims:
+    text: 768
+    audio: 768
+    visual: 768
+  num_heads: 4
+  attention_dim: 256
+  # Reliability vector includes:
+  # - D1 generalized JSD (1)
+  # - D2 pairwise mean JSD (1)
+  # - D3 categorical disagreement one-hot (3)
+  # - Modality confidences (3)
+  # - Modality predictive entropies (3)
+  # - Modality calibrated confidences (3)
+  reliability_feature_dim: 14
+  hidden_dims: [512, 256]
+  dropout: 0.2
+  activation: "gelu"
+  num_classes: 7
+  use_disagreement: true
+  use_reliability: true
+  use_temperature_scaling: true
+  initial_temperature: 1.0

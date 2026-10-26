@@ -1,0 +1,9 @@
+policy_name,metric,point_estimate,ci_lower_95,ci_upper_95,num_samples,num_dialogues
+Policy 0: Always Adapt (Naïve),Strong Adaptation Error Rate,0.3253,0.3053,0.3457,2610,280
+Policy 0: Always Adapt (Naïve),Strong Adaptation Coverage,1.0,1.0,1.0,2610,280
+Policy 1: Confidence-Only,Strong Adaptation Error Rate,0.1445,0.1254,0.1667,2610,280
+Policy 1: Confidence-Only,Strong Adaptation Coverage,0.5092,0.489,0.5297,2610,280
+Policy 2: Confidence + D1/D3,Strong Adaptation Error Rate,0.1291,0.1101,0.1508,2610,280
+Policy 2: Confidence + D1/D3,Strong Adaptation Coverage,0.4628,0.4431,0.4829,2610,280
+Policy 3: Full Reliability (+Entropy),Strong Adaptation Error Rate,0.1298,0.109,0.1516,2610,280
+Policy 3: Full Reliability (+Entropy),Strong Adaptation Coverage,0.4575,0.4381,0.4775,2610,280

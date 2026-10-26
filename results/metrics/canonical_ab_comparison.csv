@@ -1,0 +1,10 @@
+experiment_id,model,seed,accuracy,macro_f1,weighted_f1,raw_ece,calibrated_ece,mce,brier,high_confidence_error,temperature,git_commit,checkpoint_version
+EXP-MELD-AUDIT-2026-CANONICAL,Model A (Baseline Concatenation),42,0.668199,0.478656,0.663328,0.253586,0.029804,0.317269,0.458788,0.11157,3.71956,meld-audit-canonical,v1.0-canonical
+EXP-MELD-AUDIT-2026-CANONICAL,Model B (Disagreement-Aware),42,0.540613,0.425513,0.57351,0.261237,0.046629,0.132443,0.587756,0.097173,3.17313,meld-audit-canonical,v1.0-canonical
+EXP-MELD-AUDIT-2026-CANONICAL,Model C (Reliability-Aware Attention),42,0.666667,0.484925,0.677416,0.105581,0.068261,0.215532,0.462794,0.092613,1.95389,meld-audit-canonical,v1.0-canonical
+EXP-MELD-AUDIT-2026-CANONICAL,Model A (Baseline Concatenation),123,0.681992,0.472642,0.665092,0.21217,0.039006,0.193593,0.444992,0.094949,3.15695,meld-audit-canonical,v1.0-canonical
+EXP-MELD-AUDIT-2026-CANONICAL,Model B (Disagreement-Aware),123,0.559387,0.42848,0.589497,0.263682,0.036156,0.08363,0.568285,0.088435,3.30314,meld-audit-canonical,v1.0-canonical
+EXP-MELD-AUDIT-2026-CANONICAL,Model C (Reliability-Aware Attention),123,0.629502,0.488753,0.653088,0.106561,0.055596,0.127728,0.486693,0.103368,1.75322,meld-audit-canonical,v1.0-canonical
+EXP-MELD-AUDIT-2026-CANONICAL,Model A (Baseline Concatenation),456,0.690038,0.491095,0.67938,0.150422,0.046875,0.095621,0.445303,0.10039,2.07663,meld-audit-canonical,v1.0-canonical
+EXP-MELD-AUDIT-2026-CANONICAL,Model B (Disagreement-Aware),456,0.515709,0.401892,0.554313,0.23255,0.037308,0.136522,0.603891,0.107861,2.59029,meld-audit-canonical,v1.0-canonical
+EXP-MELD-AUDIT-2026-CANONICAL,Model C (Reliability-Aware Attention),456,0.647893,0.507314,0.668606,0.21427,0.08503,0.220331,0.499455,0.086358,3.90544,meld-audit-canonical,v1.0-canonical
